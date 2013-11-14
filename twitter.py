@@ -3,9 +3,10 @@ from secrets import *
 from twython import TwythonStreamer
 import train
 train.main()
-from colorama import init, Fore
-train.categories[0].colour = Fore.GREEN
-train.categories[1].colour = Fore.RED
+from colorama import init, Fore, Back 
+train.categories[0].colour = Fore.GREEN + Back.BLACK
+train.categories[1].colour = Fore.RED + Back.WHITE
+reset = Fore.RESET + Back.RESET
 
 class SentimentStreamer(TwythonStreamer):
     def on_success(self, data):
@@ -15,7 +16,7 @@ class SentimentStreamer(TwythonStreamer):
                 print data['text'].encode('utf-8')
                 print "neutral"
             else: 
-                print mood.colour + data['text'].encode('utf-8') + Fore.RESET
+                print mood.colour + data['text'].encode('utf-8') + reset
                 print(mood)
 
     def on_error(self, status_code, data):
